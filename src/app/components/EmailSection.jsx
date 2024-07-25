@@ -10,9 +10,18 @@ const EmailSection = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 获取表单数据
+    const email = e.target.email.value;
+    const subject = e.target.subject.value;
+    const message = e.target.message.value;
+
     const data = {
-    
+      email,
+      subject,
+      message,
     };
+
     const JSONdata = JSON.stringify(data);
     const endpoint = "/api/send";
 
@@ -34,6 +43,11 @@ const EmailSection = () => {
     if (response.status === 200) {
       console.log("Message sent.");
       setEmailSubmitted(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000)
+    } else {
+      console.error("Failed to send message:", resData.error);
     }
   };
 
@@ -54,21 +68,17 @@ const EmailSection = () => {
           try my best to get back to you!
         </p>
         <div className="socials flex flex-row gap-2">
-          
-            <Link href="github.com">
-              <Image src={GithubIcon} alt="Github Icon" />
-            </Link>
-            <Link href="linkedin.com">
-              <Image src={LinkedinIcon} alt="Linkedin Icon" />
-            </Link>
-          
+          <Link href="github.com">
+            <Image src={GithubIcon} alt="Github Icon" />
+          </Link>
+          <Link href="linkedin.com">
+            <Image src={LinkedinIcon} alt="Linkedin Icon" />
+          </Link>
         </div>
       </div>
       <div>
         {emailSubmitted ? (
-          <p className="text-green-500 text-sm mt-2">
-            Email sent successfully!
-          </p>
+          <p className="text-green-500 text-sm mt-2">Email sent successfully!</p>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <div className="mb-6">
@@ -113,6 +123,7 @@ const EmailSection = () => {
               <textarea
                 name="message"
                 id="message"
+                required
                 className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
                 placeholder="Let's talk about..."
               />
