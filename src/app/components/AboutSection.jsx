@@ -23,9 +23,7 @@ const TAB_DATA = [
     id: "education",
     content: (
       <ul className="list-disc pl-2">
-        <li>
-          Diploma of Information Technology Advance Programming 
-        </li>
+        <li>Diploma of Information Technology Advance Programming</li>
         <li>Certificate IV in Information Technology Programming</li>
       </ul>
     ),
@@ -36,7 +34,6 @@ const TAB_DATA = [
     content: (
       <ul className="list-disc pl-2">
         <li>AWS Cloud Practitioner</li>
-        
       </ul>
     ),
   },
@@ -59,12 +56,14 @@ const AboutSection = () => {
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
           <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
           <p className="text-base lg:text-lg">
-            I am a full stack web developer with a passion for creating
-            interactive and responsive web applications. I have experience
-            working with JavaScript, React, Redux, Node.js, Express, PostgreSQL,
-            Sequelize, HTML, CSS, and Git. I am a quick learner and I am always
-            looking to expand my knowledge and skill set. I am a team player and
-            I am excited to work with others to create amazing applications.
+            I am an aspiring IT professional with a strong foundation in
+            programming and cloud technologies. I hold an IT diploma from TAFE
+            and have practical experience developing web and mobile applications
+            in collaborative team settings. I took the initiative to learn phone
+            repair, gaining hands-on skills in diagnosing and fixing issues. I
+            am continuously expanding my technical knowledge and skills, and I
+            am eager to apply my enthusiasm to new challenges in the tech
+            industry.
           </p>
           <div className="flex flex-row justify-start mt-8">
             <TabButton
