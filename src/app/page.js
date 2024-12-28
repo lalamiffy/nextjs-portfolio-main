@@ -6,7 +6,7 @@ import EmailSection from "./components/EmailSection";
 import Footer from "./components/Footer";
 //import AchievementsSection from "./components/AchievementsSection";
 import { Amplify } from 'aws-amplify';
-import outputs from '../amplify_outputs.json';
+//import outputs from '../amplify_outputs.json';
 
 
 export default function Home() {
@@ -26,5 +26,5 @@ export default function Home() {
 }
 
 
-Amplify.configure(outputs);
+//Amplify.configure(outputs);
 //
