@@ -15,6 +15,8 @@ const TAB_DATA = [
         <li>SQL</li>
         <li>MongoDB</li>
         <li>HTML, CSS, Bootstrap</li>
+        <li>Linux</li>
+        <li>AWS Cloud Services</li>
       </ul>
     ),
   },
@@ -23,6 +25,7 @@ const TAB_DATA = [
     id: "education",
     content: (
       <ul className="list-disc pl-2">
+        <li>Diploma of Cloud Computing</li>
         <li>Diploma of Information Technology Advance Programming</li>
         <li>Certificate IV in Information Technology Programming</li>
       </ul>
@@ -33,7 +36,11 @@ const TAB_DATA = [
     id: "certifications",
     content: (
       <ul className="list-disc pl-2">
-        <li>..</li>
+        <li>AWS Certified Cloud Practitioner (CCP)</li>
+        <li>AWS Certified Solutions Architect - Associate (SAA)</li>
+        <li>AWS Certified SysOps Administrator - Associate (SOA)</li>
+        <li>AWS Certified AI Practitioner (AIF)</li>
+        <li>AWS Certified Developer - Associate (DVA)</li>
       </ul>
     ),
   },

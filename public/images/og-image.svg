@@ -1,0 +1,54 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0f172a"/>
+  
+  <!-- Gradient overlay -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:0.8" />
+    </linearGradient>
+    <radialGradient id="accent" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#9333ea;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.1" />
+    </radialGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#accent)"/>
+  
+  <!-- Main Title -->
+  <text x="600" y="200" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white">
+    Jianna's Portfolio
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="280" font-family="Arial, sans-serif" font-size="36" text-anchor="middle" fill="#94a3b8">
+    AWS Certified Developer &amp; IT Professional
+  </text>
+  
+  <!-- Skills badges -->
+  <g transform="translate(300, 350)">
+    <!-- AWS Badge -->
+    <rect x="0" y="0" width="120" height="40" rx="20" fill="#ff9900"/>
+    <text x="60" y="28" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">AWS</text>
+    
+    <!-- React Badge -->
+    <rect x="140" y="0" width="120" height="40" rx="20" fill="#61dafb"/>
+    <text x="200" y="28" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">React</text>
+    
+    <!-- JavaScript Badge -->
+    <rect x="280" y="0" width="120" height="40" rx="20" fill="#f7df1e"/>
+    <text x="340" y="28" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">JavaScript</text>
+    
+    <!-- Linux Badge -->
+    <rect x="420" y="0" width="120" height="40" rx="20" fill="#fcc419"/>
+    <text x="480" y="28" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Linux</text>
+  </g>
+  
+  <!-- Bottom text -->
+  <text x="600" y="500" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#64748b">
+    Web Development • Cloud Architecture • Programming
+  </text>
+</svg>

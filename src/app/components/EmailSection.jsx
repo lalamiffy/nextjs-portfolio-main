@@ -7,47 +7,51 @@ import Image from "next/image";
 
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-    // 获取表单数据
-    const email = e.target.email.value;
-    const subject = e.target.subject.value;
-    const message = e.target.message.value;
+    try {
+      // Get form data
+      const email = e.target.email.value;
+      const subject = e.target.subject.value;
+      const message = e.target.message.value;
 
-    const data = {
-      email,
-      subject,
-      message,
-    };
+      const data = {
+        email,
+        subject,
+        message,
+      };
 
-    const JSONdata = JSON.stringify(data);
-    const endpoint = "/api/send";
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    // Form the request for sending data to the server.
-    const options = {
-      // The method is POST because we are sending data.
-      method: "POST",
-      // Tell the server we're sending JSON.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    };
+      const resData = await response.json();
 
-    const response = await fetch(endpoint, options);
-    const resData = await response.json();
-
-    if (response.status === 200) {
-      console.log("Message sent.");
-      setEmailSubmitted(true);
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000)
-    } else {
-      console.error("Failed to send message:", resData.error);
+      if (response.ok) {
+        console.log("Message sent successfully");
+        setEmailSubmitted(true);
+        e.target.reset(); // Clear form
+        setTimeout(() => {
+          setEmailSubmitted(false);
+        }, 5000); // Reset after 5 seconds instead of reloading
+      } else {
+        setError(resData.error || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,9 +82,22 @@ const EmailSection = () => {
       </div>
       <div>
         {emailSubmitted ? (
-          <p className="text-green-500 text-sm mt-2">Email sent successfully!</p>
+          <div className="text-center">
+            <div className="text-green-500 text-lg font-medium mb-2">
+              ✅ Message sent successfully!
+            </div>
+            <p className="text-gray-400 text-sm">
+              Thank you for reaching out. I'll get back to you soon!
+            </p>
+          </div>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
+            {error && (
+              <div className="mb-4 p-3 bg-red-900/20 border border-red-500 rounded-lg">
+                <p className="text-red-400 text-sm">{error}</p>
+              </div>
+            )}
+            
             <div className="mb-6">
               <label
                 htmlFor="email"
@@ -93,10 +110,12 @@ const EmailSection = () => {
                 type="email"
                 id="email"
                 required
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                disabled={isLoading}
+                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5 disabled:opacity-50 disabled:cursor-not-allowed focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
                 placeholder="jacob@google.com"
               />
             </div>
+            
             <div className="mb-6">
               <label
                 htmlFor="subject"
@@ -109,10 +128,12 @@ const EmailSection = () => {
                 type="text"
                 id="subject"
                 required
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                disabled={isLoading}
+                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5 disabled:opacity-50 disabled:cursor-not-allowed focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors"
                 placeholder="Just saying hi"
               />
             </div>
+            
             <div className="mb-6">
               <label
                 htmlFor="message"
@@ -124,15 +145,29 @@ const EmailSection = () => {
                 name="message"
                 id="message"
                 required
-                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
+                rows="5"
+                disabled={isLoading}
+                className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5 disabled:opacity-50 disabled:cursor-not-allowed focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors resize-vertical"
                 placeholder="Let's talk about..."
               />
             </div>
+            
             <button
               type="submit"
-              className="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full"
+              disabled={isLoading}
+              className="bg-primary-500 hover:bg-primary-600 disabled:bg-primary-700 disabled:cursor-not-allowed text-white font-medium py-2.5 px-5 rounded-lg w-full transition-colors flex items-center justify-center"
             >
-              Send Message
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Sending...
+                </>
+              ) : (
+                "Send Message"
+              )}
             </button>
           </form>
         )}
